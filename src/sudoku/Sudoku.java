@@ -10,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-
 public class Sudoku extends Application {
     Scene level;
     @Override
@@ -24,9 +23,13 @@ public class Sudoku extends Application {
         solver.setLayoutY(250);
         play.setPrefSize(80 ,30 );
         solver.setPrefSize(80 ,30 );
-        play.setOnAction(e->primaryStage.setScene(level));
-        
-        
+        play.setOnAction(e->{
+		primaryStage.setScene(level);
+		primaryStage.resizableProperty().setValue(Boolean.FALSE);
+	}); 
+        solver.setOnAction(e->{
+		primaryStage.setScene(SudokuBoard.display());		
+	});
         myPane.getChildren().add(play);
         myPane.getChildren().add(solver);
         Scene myScene = new Scene(myPane,800,500);
@@ -38,16 +41,17 @@ public class Sudoku extends Application {
         hbox.getChildren().add(easy = new RadioButton("Easy"));
         hbox.getChildren().add(medium = new RadioButton("Medium"));
         hbox.getChildren().add(hard = new RadioButton("Hard"));
-        level = new Scene(hbox,500,300);
+        level = new Scene(hbox,800,500);
         easy.setToggleGroup(radioGroup);
         medium.setToggleGroup(radioGroup);
         hard.setToggleGroup(radioGroup);
         hbox.setAlignment(Pos.CENTER);
-
+        
 
         
-        
-        primaryStage.setScene(myScene);
+	 
+        primaryStage.resizableProperty().setValue(Boolean.FALSE);
+	primaryStage.setScene(myScene);
         primaryStage.show();
         
     }
