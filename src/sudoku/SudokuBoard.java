@@ -26,11 +26,10 @@ package sudoku;
 import javafx.geometry.*;
 import javafx.css.*;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.stage.*;
+import javafx.event.*;
 
 public class SudokuBoard  {
 
@@ -39,6 +38,8 @@ public class SudokuBoard  {
 	board.setId("board");
 	board.setPadding(new Insets(20));
 	TextField[][] field = new TextField[15][15];
+	Button ok = new Button("Done");
+	Button check = new Button("Solve");
 	
 	//1st SET
 	for(int i=0;i<3;i++) {
@@ -104,9 +105,16 @@ public class SudokuBoard  {
 		}
 	    
 	}
+	board.add(ok,30,5);
+	board.add(check,30,6);
 	
 	board.setHgap(5);
 	board.setVgap(5);
+	
+	//Button Event
+	ok.setOnAction(e->Solver.solve());
+	check.setOnAction(e->Solver.solve());
+	
 	Scene myScene = new Scene(board,800,500);
 	myScene.getStylesheets().add("sudoku/sudoku.css");
 	return myScene;

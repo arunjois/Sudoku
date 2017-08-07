@@ -9,7 +9,7 @@ in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
-
+getStyle
 The above copyright notice and this permission notice shall be included in
 all copies or substantial portions of the Software.
 
@@ -24,10 +24,11 @@ THE SOFTWARE.
 package sudoku;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.*;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
+import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -47,7 +48,6 @@ public class Sudoku extends Application {
         solver.setPrefSize(80 ,30 );
         play.setOnAction(e->{
 		primaryStage.setScene(level);
-		primaryStage.resizableProperty().setValue(Boolean.FALSE);
 	}); 
         solver.setOnAction(e->{
 		primaryStage.setScene(SudokuBoard.display());		
@@ -68,10 +68,29 @@ public class Sudoku extends Application {
         medium.setToggleGroup(radioGroup);
         hard.setToggleGroup(radioGroup);
         hbox.setAlignment(Pos.CENTER);
+	easy.setUserData("Easy");
+	medium.setUserData("Medium");
+	hard.setUserData("Hard");
+	
+	
+	
+	//Event
+	radioGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
+		public void changed(ObservableValue<? extends Toggle> ov,
+		Toggle old_toggle, Toggle new_toggle) {
+                if (radioGroup.getSelectedToggle() != null) {
+			String tmp = radioGroup.getSelectedToggle().getUserData().toString();
+			GeneratePuzzle puzzle = new GeneratePuzzle(tmp);
+			primaryStage.setScene(SudokuBoard.display());
+            }                
+        }
+        });
+	
         
 
         
-	 
+	myPane.setStyle("-fx-background-color:  #6495ed");
+	hbox.setStyle("-fx-background-color:  #6495ed");
         primaryStage.resizableProperty().setValue(Boolean.FALSE);
 	primaryStage.setScene(myScene);
         primaryStage.show();
