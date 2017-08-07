@@ -112,7 +112,14 @@ public class SudokuBoard  {
 	board.setVgap(5);
 	
 	//Button Event
-	ok.setOnAction(e->Solver.solve());
+	ok.setOnAction(e->{
+		if(Solver.solve()){
+			AlertBox.display("Result", "You Won");
+		}
+		else {
+			AlertBox.display("Result","You Lost");
+		}
+	});
 	check.setOnAction(e->Solver.solve());
 	
 	Scene myScene = new Scene(board,800,500);

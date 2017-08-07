@@ -23,13 +23,43 @@
  */
 package sudoku;
 
-/**
- *
- * @author arun
- */
-public class Solver {
-	public static boolean solve(){
-		
-		return true;
-	}
+import javafx.stage.*;
+import javafx.scene.*;
+import javafx.scene.layout.*;
+import javafx.scene.control.*;
+import javafx.geometry.*;
+
+public class AlertBox {
+
+    public static void display(String title, String message) {
+        Stage window = new Stage();
+
+        //Block events to other windows
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle(title);
+        //window.setMinWidth(200);
+	//window.setMinHeight(200);
+	
+
+        Label label = new Label();
+        label.setText(message);
+        Button closeButton = new Button("Close this window");
+        closeButton.setOnAction(e -> window.close());
+	//closeButton.setStyle("-fx-pref-width: 3em ;\n" +
+//"    -fx-pref-height: 3em ;");
+	
+	
+        VBox layout = new VBox(10);
+        layout.getChildren().addAll(label, closeButton);
+        layout.setAlignment(Pos.CENTER);
+	layout.setStyle("-fx-background-color:  #6495ed ;");
+	
+	
+	
+        //Display window and wait for it to be closed before returning
+        Scene scene = new Scene(layout,300,200);
+        window.setScene(scene);
+        window.showAndWait();
+    }
+
 }

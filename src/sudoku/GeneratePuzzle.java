@@ -23,6 +23,12 @@
  */
 package sudoku;
 
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+
 /**
  *
  * @author arun
@@ -31,4 +37,100 @@ public class GeneratePuzzle {
 	GeneratePuzzle(String level) {
 		
 	}
+	
+	
+	
+    public static Scene display() {
+        GridPane board = new GridPane();
+	board.setId("board");
+	board.setPadding(new Insets(20));
+	TextField[][] field = new TextField[15][15];
+	Button ok = new Button("Done");
+	Button check = new Button("Solve");
+	
+	//1st SET
+	for(int i=0;i<3;i++) {
+		for(int j=0;j<3;j++) {
+			field[i][j] = new TextField();
+			board.add(field[i][j], i, j);
+			field[i][j].setId("field");
+		}
+	
+		for(int j=4;j<7;j++) {
+			field[i][j] = new TextField();
+			board.add(field[i][j], i, j);
+			field[i][j].setId("field");
+		}
+		
+		for(int j=8;j<11;j++) {
+			field[i][j] = new TextField();
+			board.add(field[i][j], i, j);
+			field[i][j].setId("field");
+		}
+	}
+	
+	//2nd SET
+	for(int i=4;i<7;i++) {
+	    for(int j=0;j<3;j++) {
+			field[i][j] = new TextField();
+			board.add(field[i][j], i, j);
+			field[i][j].setId("field");
+		}
+	
+		for(int j=4;j<7;j++) {
+			field[i][j] = new TextField();
+			board.add(field[i][j], i, j);
+			field[i][j].setId("field");
+		}
+		
+		for(int j=8;j<11;j++) {
+			field[i][j] = new TextField();
+			board.add(field[i][j], i, j);
+			field[i][j].setId("field");
+		}
+	    
+	}
+	
+	//3rd SET
+	for(int i=8;i<11;i++) {
+	    for(int j=0;j<3;j++) {
+			field[i][j] = new TextField();
+			board.add(field[i][j], i, j);
+			field[i][j].setId("field");
+		}
+	
+		for(int j=4;j<7;j++) {
+			field[i][j] = new TextField();
+			board.add(field[i][j], i, j);
+			field[i][j].setId("field");
+		}
+		
+		for(int j=8;j<11;j++) {
+			field[i][j] = new TextField();
+			board.add(field[i][j], i, j);
+			field[i][j].setId("field");
+		}
+	    
+	}
+	board.add(ok,30,5);
+	board.add(check,30,6);
+	
+	board.setHgap(5);
+	board.setVgap(5);
+	
+	//Button Event
+	ok.setOnAction(e->{
+		if(Solver.solve()){
+			AlertBox.display("Result", "You Won");
+		}
+		else {
+			AlertBox.display("Result","You Lost");
+		}
+	});
+	check.setOnAction(e->Solver.solve());
+	
+	Scene myScene = new Scene(board,800,500);
+	myScene.getStylesheets().add("sudoku/sudoku.css");
+	return myScene;
+    }  
 }

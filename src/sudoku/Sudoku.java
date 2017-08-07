@@ -81,7 +81,7 @@ public class Sudoku extends Application {
                 if (radioGroup.getSelectedToggle() != null) {
 			String tmp = radioGroup.getSelectedToggle().getUserData().toString();
 			GeneratePuzzle puzzle = new GeneratePuzzle(tmp);
-			primaryStage.setScene(SudokuBoard.display());
+			primaryStage.setScene(puzzle.display());
             }                
         }
         });
